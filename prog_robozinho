@@ -33,9 +33,6 @@ void loop() {
   forward(); //Andar pra frente
   delay(1000);
   }
-  while(analogRead(680<luz)){ //Enquanto a luz está desliga, parar robo
-    stopRobot();
-  }  
 }
 
 // forward, reverse, turns e stop
