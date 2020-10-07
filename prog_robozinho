@@ -1,0 +1,64 @@
+#include <Servo.h>
+#include <Ultrasonic.h>
+#define pino_trigger 2
+#define pino_echo 3
+
+
+Servo servoEsquerda; // Define servo da esquerda
+Servo servoDireita; // Define servo da direita
+Ultrasonic ultrasonic(pino_trigger, pino_echo); 
+
+int luz;
+
+void setup() { 
+  servoEsquerda.attach(5);  // Servo esquerda na porta 5
+  servoDireita.attach(6);  //Servo direita na porta 6
+  pinMode(pino_trigger, OUTPUT);
+  pinMode(pino_echo, INPUT);
+  pinMode(luz, INPUT);
+  Serial.begin(9600);
+} 
+
+void loop() { 
+  float cmMsec, inMsec;
+  long microsec = ultrasonic.timing();
+  cmMsec = ultrasonic.convert(microsec, Ultrasonic::CM);
+  luz = analogRead(0);
+  
+  if(cmMsec <= 20) { // quando existir um objeto a 15cm de distância, virar a direita
+    turnLeft();
+    delay(800);
+  }
+  else {
+  forward(); //Andar pra frente
+  delay(1000);
+  }
+  while(analogRead(680<luz)){ //Enquanto a luz está desliga, parar robo
+    stopRobot();
+  }  
+}
+
+// forward, reverse, turns e stop
+void forward() { //Andar para frente
+  servoEsquerda.write(0);
+  servoDireita.write(180);
+}
+
+void reverse() { //Andar para trás
+  servoEsquerda.write(180);
+  servoDireita.write(0);
+}
+
+void turnLeft() { //Girar para a direita
+  servoEsquerda.write(0);
+  servoDireita.write(0);
+}
+void turnRight() { //Girar para a esquerda
+  servoEsquerda.write(180);
+  servoDireita.write(180);
+}
+
+void stopRobot() { //Parar
+  servoEsquerda.write(90);
+  servoDireita.write(90);
+}
