@@ -10,6 +10,7 @@ Ultrasonic ultrasonic(pino_trigger, pino_echo);
 
 int luz;
 
+
 void setup() { 
   servoEsquerda.attach(5);  // Servo esquerda na porta 5
   servoDireita.attach(6);  //Servo direita na porta 6
@@ -33,6 +34,12 @@ void loop() {
   forward(); //Andar pra frente
   delay(1000);
   }
+
+
+luz=analogRead(0)
+if(analogRead(0);
+voidstopRobot() {
+
 }
 
 // forward, reverse, turns e stop
