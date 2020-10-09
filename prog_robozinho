@@ -10,13 +10,11 @@ Ultrasonic ultrasonic(pino_trigger, pino_echo);
 
 int luz;
 
-
 void setup() { 
   servoEsquerda.attach(5);  // Servo esquerda na porta 5
   servoDireita.attach(6);  //Servo direita na porta 6
   pinMode(pino_trigger, OUTPUT);
   pinMode(pino_echo, INPUT);
-  pinMode(luz, INPUT);
   Serial.begin(9600);
 } 
 
@@ -24,9 +22,13 @@ void loop() {
   float cmMsec, inMsec;
   long microsec = ultrasonic.timing();
   cmMsec = ultrasonic.convert(microsec, Ultrasonic::CM);
+
   luz = analogRead(0);
-  
-  if(cmMsec <= 20) { // quando existir um objeto a 15cm de distância, virar a direita
+  if(luz > 750){ //Quando a luz está desligada, parar robo
+    stopRobot();
+  } 
+ 
+  else if(cmMsec <= 20) { // quando existir um objeto a 15cm de distância, virar a direita
     turnLeft();
     delay(800);
   }
@@ -34,11 +36,6 @@ void loop() {
   forward(); //Andar pra frente
   delay(1000);
   }
-
-
-luz=analogRead(0)
-if(analogRead(0);
-voidstopRobot() {
 
 }
 
